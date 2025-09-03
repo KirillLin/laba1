@@ -45,34 +45,61 @@ package demo.parallel;
  * @author Alexander Kouznetsov, Tristan Yan
  */
 public class Complex {
-    
+
     private double re;   // the real part
     private double im;   // the imaginary part
 
-    /** 
+    /**
      * create a new object with the given real and imaginary parts
-     * 
+     *
      * @param real a complex number real part
-     * @param imag a complex number imaginary part 
+     * @param imag a complex number imaginary part
      */
     public Complex(double real, double imag) {
         re = real;
         im = imag;
     }
 
-    /**
-     * Add operation.
-     * @param b summand
-     * @return this Complex object whose value is (this + b)
-     */
+
     public Complex plus(Complex b) {
         re += b.re;
         im += b.im;
         return this;
     }
+ /* операция вычитания
+     * @param b substructed
+     * @return this Complex object whose value is (this - b)
+     */
+    public Complex subtract(Complex b) {
+        re -= b.re;
+        im -= b.im;
+        return this;
+    }
 
+    public Complex copy() {
+        return new Complex(this.re, this.im);
+    }
 
+    //возведение в степень
+    public Complex pow(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Power must be non-negative");
+        }
+        if (n == 0) {
+            this.re = 1;
+            this.im = 0;
+            return this;
+        }
+        if (n == 1) {
+            return this;
+        }
 
+        Complex original = this.copy();
+        for (int i = 1; i < n; i++) {
+            this.times(original);
+        }
+        return this;
+    }
     /**
      * Multiply operation.
      * @param  b multiplier
@@ -88,11 +115,12 @@ public class Complex {
     }
 
     /**
-     * Square of Complex object's length, we're using square of length to 
+     * Square of Complex object's length, we're using square of length to
      * eliminate the computation of square root
      * @return square of length
     */
     public double lengthSQ() {
         return re * re + im * im;
     }
+
 }
