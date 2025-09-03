@@ -123,4 +123,22 @@ public class Complex {
         return re * re + im * im;
     }
 
+    public Complex divideBy(Complex b) {
+        double devidor = b.lengthSQ();
+        double realRes = re * b.re + im * b.im;
+        double imagRes = im * b.re - re * b.im;
+        realRes /= devidor;
+        imagRes /= devidor;
+        return new Complex(realRes, imagRes);
+    }
+
+    double getRe() {
+        return re;
+    }
+
+    public double getIm() {
+        return im;
+    }
+
+
 }
